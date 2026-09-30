@@ -182,7 +182,8 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ------------------------------------------------------------------ Faixa */
 .faixa { border-block: 1px solid var(--linha); overflow: hidden; background: var(--noite); padding-block: 18px; }
-.faixa-trilho { display: flex; width: max-content; animation: correr 60s linear infinite; }
+.faixa-trilho { display: flex; width: max-content; animation: correr 38s linear infinite; will-change: transform; }
+.faixa:hover .faixa-trilho { animation-play-state: paused; }
 .faixa-linha { display: flex; }
 .faixa-linha > span { display: flex; align-items: center; gap: 36px; padding-right: 36px; font: italic 400 clamp(1.3rem, 2.2vw, 1.8rem)/1 var(--f-titulo), Georgia, serif; color: var(--suave); white-space: nowrap; }
 .faixa-linha i { font-style: normal; font-size: 0.5em; color: var(--ouro); }
@@ -442,7 +443,8 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0s !important; }
   .brilhos, .rolar { display: none; }
-  .faixa-trilho { animation: none; }
+  /* a esteira continua correndo: movimento linear e lento, pedido da marca */
+  .faixa-trilho { animation-duration: 38s !important; animation-iteration-count: infinite !important; }
 }
 
 /* ------------------------------------------------------------------ Ajustes finos */
