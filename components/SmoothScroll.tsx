@@ -6,7 +6,7 @@ import { gsap, ScrollTrigger, setLenis, rolarPara, MQ } from "@/lib/movimento";
 /** Um relógio só: o ticker do GSAP move o Lenis, e o Lenis avisa o ScrollTrigger. */
 export default function SmoothScroll() {
   useEffect(() => {
-    // Links internos (#ato) passam sempre por aqui, com ou sem rolagem suave
+    // Links internos (#secao) passam sempre por aqui, com ou sem rolagem suave
     const aoClicar = (e: MouseEvent) => {
       const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
       if (!a) return;
@@ -20,7 +20,8 @@ export default function SmoothScroll() {
 
     if (matchMedia(MQ.reduzido).matches) return () => document.removeEventListener("click", aoClicar);
 
-    const lenis = new Lenis({ autoRaf: false, lerp: 0.085, wheelMultiplier: 0.95, touchMultiplier: 1.1 });
+    // Toque continua nativo (mais natural no celular); roda do mouse ganha inércia macia
+    const lenis = new Lenis({ autoRaf: false, lerp: 0.1, wheelMultiplier: 0.9 });
     setLenis(lenis);
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (t: number) => lenis.raf(t * 1000);

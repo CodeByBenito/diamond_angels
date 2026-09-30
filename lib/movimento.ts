@@ -10,9 +10,10 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 export const MQ = {
   movimento: "(prefers-reduced-motion: no-preference)",
   reduzido: "(prefers-reduced-motion: reduce)",
-  mouse: "(pointer: fine)",
-  celular: "(max-width: 700px)",
 } as const;
+
+/** Curva padrão do site: desacelera longa e macia, sem "quique". */
+export const EASE = "expo.out";
 
 let lenisAtual: Lenis | null = null;
 export const setLenis = (l: Lenis | null) => { lenisAtual = l; };
@@ -22,12 +23,12 @@ export const getLenis = () => lenisAtual;
 export function rolarPara(alvo: Element | null) {
   if (!alvo) return;
   const l = lenisAtual;
-  if (l) { l.start(); document.documentElement.classList.remove("menu-aberto"); }
-  if (l) l.scrollTo(alvo as HTMLElement, { offset: (alvo as HTMLElement).id === "porta" ? 0 : -64, duration: 1.4 });
-  else alvo.scrollIntoView({ behavior: matchMedia(MQ.reduzido).matches ? "auto" : "smooth" });
+  if (l) {
+    l.start();
+    l.scrollTo(alvo as HTMLElement, { offset: -72, duration: 1.6, easing: (t) => 1 - Math.pow(1 - t, 4) });
+  } else {
+    alvo.scrollIntoView({ behavior: matchMedia(MQ.reduzido).matches ? "auto" : "smooth" });
+  }
 }
-
-export const lim = (v: number, a: number, b: number) => (v < a ? a : v > b ? b : v);
-export const suave = (t: number) => t * t * (3 - 2 * t);
 
 export { gsap, ScrollTrigger, SplitText };

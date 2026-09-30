@@ -1,90 +1,91 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { ATOS, LINKS, type AtoId } from "@/lib/conteudo";
+import { LINKS, NAV, type SecaoId } from "@/lib/conteudo";
 import { ScrollTrigger, getLenis } from "@/lib/movimento";
-
-const NAV: { id: AtoId; rotulo: string }[] = [
-  { id: "camarim", rotulo: "O clube" },
-  { id: "porta", rotulo: "Benefícios" },
-  { id: "lineup", rotulo: "Eventos" },
-  { id: "caminhos", rotulo: "Marcas" },
-];
 
 export default function Header() {
   const [aberto, setAberto] = useState(false);
-  const [ato, setAto] = useState<AtoId>("inicio");
+  const [atual, setAtual] = useState<SecaoId>("inicio");
   const [recolhido, setRecolhido] = useState(false);
+  const [rolado, setRolado] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
   const menu = useRef<HTMLDivElement>(null);
 
-  /* Cabeçalho some ao descer e volta ao subir; o ato atual acompanha a rolagem */
+  /* Cabeçalho some ao descer e volta ao subir; a seção atual acompanha a rolagem */
   useGSAP(() => {
     ScrollTrigger.create({
       start: 0,
       end: "max",
-      onUpdate: (self) => setRecolhido(self.direction === 1 && self.scroll() > 160),
+      onUpdate: (self) => {
+        const y = self.scroll();
+        setRolado(y > 24);
+        setRecolhido(self.direction === 1 && y > 240);
+      },
     });
-    ATOS.forEach(({ id }) => {
+    NAV.forEach(({ id }) => {
       const el = document.getElementById(id);
-      if (el) ScrollTrigger.create({ trigger: el, start: "top 50%", end: "bottom 50%", onToggle: (s) => s.isActive && setAto(id) });
+      if (el) ScrollTrigger.create({ trigger: el, start: "top 45%", end: "bottom 45%", onToggle: (s) => s.isActive && setAtual(id) });
     });
   });
 
   /* Menu de tela cheia: trava a rolagem, foca o primeiro link, fecha com Esc */
   useEffect(() => {
-    const raiz = document.documentElement;
-    raiz.classList.toggle("menu-aberto", aberto);
+    document.documentElement.classList.toggle("menu-aberto", aberto);
     const lenis = getLenis();
-    if (aberto) {
-      lenis?.stop();
-      menu.current?.querySelector("a")?.focus();
-    } else {
-      lenis?.start();
-    }
+    if (aberto) { lenis?.stop(); menu.current?.querySelector("a")?.focus(); }
+    else lenis?.start();
   }, [aberto]);
 
   useEffect(() => {
     const fechar = () => setAberto(false);
     const tecla = (e: KeyboardEvent) => { if (e.key === "Escape") { setAberto(false); botao.current?.focus({ preventScroll: true }); } };
+    const largo = matchMedia("(min-width: 961px)");
+    const aoAlargar = () => largo.matches && setAberto(false);
     window.addEventListener("da:fechar-menu", fechar);
     document.addEventListener("keydown", tecla);
-    return () => { window.removeEventListener("da:fechar-menu", fechar); document.removeEventListener("keydown", tecla); };
+    largo.addEventListener("change", aoAlargar);
+    return () => {
+      window.removeEventListener("da:fechar-menu", fechar);
+      document.removeEventListener("keydown", tecla);
+      largo.removeEventListener("change", aoAlargar);
+    };
   }, []);
 
-  const atual = ATOS.find((a) => a.id === ato)!;
+  const classes = ["topo", recolhido && !aberto && "recolhido", (rolado || aberto) && "rolado"].filter(Boolean).join(" ");
 
   return (
     <>
-      <header className={`topo${recolhido && !aberto ? " recolhido" : ""}`}>
+      <header className={classes}>
         <div className="wrap">
           <a className="marca" href="#inicio" aria-label="Diamond Angels, início">
-            <img src="/logo-mark.webp" alt="" width={36} height={36} />
-            <span>DIAMOND ANGELS</span>
+            <img src="/logo-mark.webp" alt="" width={40} height={40} />
+            <span><b>Diamond</b> Angels</span>
           </a>
-          <span className="ato-atual mono" aria-hidden="true"><b>{atual.num}</b><span>{atual.nome}</span></span>
           <nav className="menu" aria-label="Principal">
             {NAV.map((n) => (
-              <a key={n.id} href={`#${n.id}`} aria-current={ato === n.id ? "true" : undefined}>{n.rotulo}</a>
+              <a key={n.id} href={`#${n.id}`} aria-current={atual === n.id ? "true" : undefined}>{n.rotulo}</a>
             ))}
-            <a className="btn" href={LINKS.agencia} target="_blank" rel="noopener" data-cursor="Abrir Instagram">Entre para o time</a>
           </nav>
-          <button ref={botao} className="abre-menu" type="button" aria-expanded={aberto} aria-controls="menu-cheio" onClick={() => setAberto((v) => !v)}>
-            <span className="mono">{aberto ? "Fechar" : "Menu"}</span><i aria-hidden="true" />
+          <a className="btn btn-sm cta-topo" href="#marcas">Divulgar evento</a>
+          <button ref={botao} className="abre-menu" type="button" aria-expanded={aberto} aria-controls="menu-cheio"
+            aria-label={aberto ? "Fechar menu" : "Abrir menu"} onClick={() => setAberto((v) => !v)}>
+            <i aria-hidden="true" />
           </button>
         </div>
       </header>
 
       <div ref={menu} className="menu-cheio" id="menu-cheio" role="dialog" aria-modal="true" aria-label="Menu" inert={!aberto}>
-        <p className="mono">Run of show · 6 atos</p>
         <ol>
-          {ATOS.map((a) => (
-            <li key={a.id}><a href={`#${a.id}`} aria-current={ato === a.id ? "true" : undefined}><b>{a.num}</b>{a.nome}</a></li>
+          {NAV.map((n, i) => (
+            <li key={n.id} style={{ "--i": i } as React.CSSProperties}>
+              <a href={`#${n.id}`} aria-current={atual === n.id ? "true" : undefined}>{n.rotulo}</a>
+            </li>
           ))}
         </ol>
         <div className="menu-cta">
-          <a className="btn" href={LINKS.agencia} target="_blank" rel="noopener">Entre para o time</a>
-          <a className="btn vazado" href={LINKS.clube} target="_blank" rel="noopener">@diamondangels3</a>
+          <a className="btn" href="#marcas">Divulgar meu evento</a>
+          <a className="btn vazado" href={LINKS.agencia} target="_blank" rel="noopener">Quero ser Angel</a>
         </div>
       </div>
     </>

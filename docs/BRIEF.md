@@ -1,4 +1,19 @@
-# BRIEF — Diamond Angels (site v4, Sites Incríveis)
+# BRIEF — Diamond Angels
+
+## v5 (2026-09-30) — proposta unificada
+
+Pedido: unificar num só site (1) os eventos onde a Diamond está presente ou em parceria, com foto, localização e informações;
+(2) o clube e os benefícios de quem participa; (3) um formulário para empresas divulgarem eventos que abre o WhatsApp
++55 71 99659-1036 com a mensagem montada. Motions mais suaves, tipografia alinhada ao logo, responsivo.
+
+- **Ordem:** Hero · Faixa · O clube · Benefícios + como entrar · Eventos (filtro Diamond/Parceria, detalhe com mapa e "Quero ir" pelo WhatsApp) · Para marcas (formulário + prévia da mensagem) · Chamada final.
+- **Tipografia:** Cinzel (as capitulares romanas do logo) em títulos de marca e rótulos; Cormorant Garamond itálico nos destaques em ouro; Manrope na leitura.
+- **Movimento:** saíram a cortina presa por 5 telas, a pulseira voadora e o cursor próprio. Entram revelações únicas com curva expo, títulos linha a linha e parallax leve; toque nativo no celular.
+- **Paleta:** a mesma do logo — preto, rubi e ouro polido em gradiente.
+
+A seção abaixo é o plano da v4, mantido como histórico.
+
+# v4 (Sites Incríveis)
 
 ## As 7 respostas
 

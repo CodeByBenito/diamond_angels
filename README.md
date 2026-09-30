@@ -1,7 +1,7 @@
 # Diamond Angels — site (Next.js + TypeScript)
 
-O clube feminino de Salvador contado como um desfile em seis atos:
-Luzes · Camarim · A porta · Line-up · Duas portas · Última chamada.
+O clube feminino de Salvador: agenda de eventos (do clube e de parceiros), benefícios para quem faz parte
+e formulário para marcas divulgarem eventos direto no WhatsApp.
 
 ## Rodar no seu computador
 
@@ -33,27 +33,27 @@ Depois de ter o domínio, defina `NEXT_PUBLIC_SITE_URL=https://seu-dominio` na h
 
 | O quê | Onde |
 |---|---|
-| Agenda de eventos | `lib/eventos.ts` (e mude `EVENTOS_SAO_EXEMPLO` para `false` quando forem reais) |
-| Links do Instagram, looks, benefícios, serviços | `lib/conteudo.ts` |
-| Vídeo atrás da cortina | coloque o arquivo em `public/videos/passarela.mp4` (aparece sozinho) |
+| Agenda de eventos (nome, data, local, endereço do mapa, foto, Diamond ou parceria) | `lib/eventos.ts` (mude `EVENTOS_SAO_EXEMPLO` para `false` quando forem reais) |
+| Fotos dos eventos | coloque em `public/eventos/` e aponte no campo `foto` (vertical 4:5). Sem foto, o site gera um cartaz |
+| Número do WhatsApp que recebe os formulários | `lib/whatsapp.ts` |
+| Textos do clube, benefícios, serviços e links do Instagram | `lib/conteudo.ts` |
 | Cores e tipografia | topo de `app/globals.css` e `app/layout.tsx` |
 
 ## Stack
 
 - **Next.js 16 (App Router) + React 19 + TypeScript**, exportado como site estático.
-- **GSAP 3 + ScrollTrigger + SplitText**: cortina, desfile, títulos que montam, fundo que viaja.
+- **GSAP 3 + ScrollTrigger + SplitText**: entradas suaves (curva expo), títulos linha a linha, parallax leve.
 - **Lenis**: rolagem suave, movida pelo mesmo relógio do GSAP.
-- **next/font**: Gloock, Instrument Sans e JetBrains Mono servidas pelo próprio site.
+- **next/font**: Cinzel (capitulares do logo), Cormorant Garamond (itálico editorial) e Manrope, servidas pelo próprio site.
 - Tudo respeita "reduzir movimento" do sistema: sem animação, a página vira uma leitura simples.
 
 ## Estrutura
 
 ```
-docs/                  BRIEF.md (entrevista e plano em cenas) e construcoes.md (registro da skill)
-_versao-anterior-html/ a versão em HTML puro, guardada só como referência (não é publicada)
 app/            layout (fontes, SEO), página e estilos globais
-components/     Header, Pulseira (movimento-assinatura), Cursor, Briefing, SmoothScroll, Motion
-components/atos Luzes, Camarim, Porta (pico), Lineup, Caminhos, Chamada
-lib/            conteúdo, eventos e utilitários de movimento
-public/         logos, imagem de compartilhamento, vídeos
+components/     Header, Hero, Faixa, Clube, Beneficios, Eventos (+ Cartaz, detalhe com mapa),
+                Marcas (+ FormMarcas → WhatsApp), Chamada, Rodape, Motion, SmoothScroll
+lib/            conteudo.ts, eventos.ts, whatsapp.ts, movimento.ts
+public/         logos, imagem de compartilhamento, fotos de eventos
+docs/           briefing e registro de construções
 ```
