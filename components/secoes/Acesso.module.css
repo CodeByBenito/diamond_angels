@@ -1,10 +1,12 @@
 /* Sem animação (ou sem JS): leitura simples, diamante pequeno como ornamento. Com .ativa: cena presa. */
-.acesso { position: relative; --k: 1; --cy: 60%; }
+.acesso { position: relative; }
 .palco { position: relative; padding-block: clamp(96px, 12vw, 160px); overflow: hidden; }
 .fora { position: relative; z-index: 3; display: grid; justify-items: center; gap: 18px; text-align: center; padding-inline: var(--gutter); }
 .fora h2 { font-size: clamp(2.8rem, 7vw, 6.2rem); max-width: 14ch; }
 .fora h2 em { display: block; }
 
+.joia { position: relative; }
+.tela { display: none; }
 .diamante { display: block; width: 200px; height: 200px; margin: 40px auto; overflow: visible; }
 .contorno, .faceta { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
 .contorno { stroke: var(--ouro-claro); stroke-width: 1.6; filter: drop-shadow(0 0 10px rgba(242, 219, 160, 0.55)); }
@@ -45,29 +47,24 @@
 @media (max-width: 1000px) { .itens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .itens { grid-template-columns: 1fr; gap: 10px; } .item { padding: 18px 18px 20px; grid-template-columns: 44px 1fr; column-gap: 14px; } .item .selo { grid-row: span 2; width: 44px; height: 44px; --chanfro: 10px; margin: 2px 0 0; } .item .selo :global(.icone) { width: 26px; height: 26px; } .item h4 { font-size: 1.45rem; } }
 
-/* ------------------------------------------------ Cena presa (com movimento) */
-.ativa { height: 420vh; }
+/* ------------------------------------------------ Cena presa (com movimento)
+   Tudo que anima aqui é transform ou opacidade (camada própria na GPU, sem refazer layout nem pintura). */
+.ativa { height: 280vh; }
 .ativa .palco { position: sticky; top: 0; height: 100svh; padding: 0; background: var(--noite); }
-.ativa .fora { position: absolute; inset: 0 0 auto; padding-top: calc(var(--topo) + 5vh); }
-.ativa .diamante {
-  /* redesenhado no tamanho real a cada quadro (traço sempre nítido), em vez de ampliar a imagem */
-  position: absolute; left: 50%; top: var(--cy); z-index: 2; margin: 0;
-  width: calc(200px * var(--k)); height: calc(200px * var(--k)); transform: translate(-50%, -50%);
-}
-.ativa .dentro {
-  position: absolute; inset: 0; display: grid; align-items: center;
-  clip-path: polygon(
-    calc(50% - 60px * var(--k)) calc(var(--cy) - 72px * var(--k)),
-    calc(50% + 60px * var(--k)) calc(var(--cy) - 72px * var(--k)),
-    calc(50% + 100px * var(--k)) calc(var(--cy) - 16px * var(--k)),
-    50% calc(var(--cy) + 100px * var(--k)),
-    calc(50% - 100px * var(--k)) calc(var(--cy) - 16px * var(--k))
-  );
-}
+.ativa .fora { position: absolute; inset: 0 0 auto; padding-top: calc(var(--topo) + 5vh); will-change: transform, opacity; }
+.ativa .joia { position: absolute; inset: 0; z-index: 2; pointer-events: none; will-change: opacity; }
+.ativa .diamante { position: absolute; left: 50%; top: 60%; margin: 0; will-change: transform; }
+/* com o 3D pronto, a tela WebGL entra no lugar do SVG num cruzamento curto */
+.ativa .tela { display: block; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s var(--ease); }
+.tem3d .tela { opacity: 1; }
+.tem3d .diamante { opacity: 0; transition: opacity 0.5s; }
+.ativa .dentro { position: absolute; inset: 0; display: grid; align-items: center; }
 .ativa .conteudo { padding-block: calc(var(--topo) + 16px) 32px; }
+/* sem desfoque de fundo durante a cena: ele seria refeito a cada quadro do cruzamento */
+.ativa .item { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(24, 6, 11, 0.55); }
 @media (max-width: 760px) {
-  .ativa { height: 340vh; }
-  .acesso { --cy: 62%; }
+  .ativa { height: 240vh; }
+  .ativa .diamante { top: 62%; }
   .ativa .conteudo { gap: 20px; }
 }
 @media (max-height: 760px) and (min-width: 761px) { .ativa .item { padding: 18px 20px; } .ativa .item p { font-size: 0.88rem; } }

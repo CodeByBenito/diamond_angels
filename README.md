@@ -53,6 +53,7 @@ Com o domínio pronto, defina `NEXT_PUBLIC_SITE_URL=https://seu-dominio` na hosp
 - **React Compiler** ligado: memoriza componentes sozinho, menos re-renderizações.
 - **CSS Modules** por seção + um `globals.css` só com tokens e peças compartilhadas: CSS sem runtime, escopo por componente.
 - **GSAP 3** (ScrollTrigger, SplitText) para a cena do diamante e as revelações; **Lenis** para a rolagem suave, no mesmo relógio.
+- **Three.js** para o diamante 3D (WebGL), baixado só perto da cena; sem WebGL, entra o diamante em SVG.
 - **next/font**: Italiana (títulos), Pinyon Script (nomes na lista) e Albert Sans (leitura), servidas pelo próprio site.
 - **Biome** (lint + formatação num só, rápido) e **sharp** (otimização de imagens).
 - SEO: dados estruturados (Organization e, quando reais, Event), `sitemap.xml`, `robots.txt`, imagem de compartilhamento 1200×630.
@@ -71,7 +72,9 @@ Para criar um ícone novo, siga as regras no topo de `components/icones/catalogo
 Tudo passa por `components/efeitos/Revelar.tsx` (atributos no HTML) e por cada seção:
 `data-reveal` (sobe e aparece), `data-stagger` (filhos em sequência), `data-split` (título linha a linha),
 `data-desvelar` (bloco grande revelado de cima para baixo), `data-parallax` e `data-bg` (o fundo viaja).
-O pico (diamante) fica em `secoes/Acesso.tsx`; a assinatura (lista, corda e carimbo) em `components/lista/`.
+O pico (diamante 3D) fica em `secoes/Acesso.tsx` (coreografia da rolagem) e `secoes/acesso/diamante3d.ts` (pedra, luzes e câmera);
+a assinatura (lista, corda e carimbo) em `components/lista/`. Na cena presa, anime só `transform` e `opacity`:
+recorte (`clip-path`), tamanho e `backdrop-filter` por quadro deixam a rolagem pesada.
 As animações ficam **ligadas por padrão**, mesmo com "Efeitos de animação" desligado no Windows ou "Reduzir movimento"
 no celular (muitos computadores vêm assim e o site ficava parado). Quem prefere o site parado usa o botão
 **"Reduzir movimento"** no rodapé; a escolha fica guardada no aparelho (`lib/movimento.ts` e `lib/preferencias.ts`).
