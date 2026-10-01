@@ -1,0 +1,10 @@
+.rodape { border-top: 1px solid var(--linha); background: var(--noite-2); padding-top: clamp(56px, 7vw, 80px); color: var(--suave); font-size: 0.92rem; }
+.grade { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+.grade > * { display: grid; align-content: start; gap: 12px; }
+.marca img { width: 140px; height: auto; }
+.grade a { display: inline-flex; align-items: center; gap: 10px; width: fit-content; transition: color 0.4s; }
+.grade a:hover { color: var(--ouro-claro); }
+.grade :global(.icone) { color: var(--ouro); }
+.base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-block: 24px calc(24px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--linha); font-size: 0.82rem; color: var(--suave-2); }
+.base a:hover { color: var(--ouro-claro); }
+@media (max-width: 760px) { .grade { grid-template-columns: 1fr 1fr; } .marca { grid-column: 1 / -1; } }

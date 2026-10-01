@@ -1,5 +1,42 @@
 # BRIEF — Diamond Angels
 
+## v6 (2026-09-30) — "Porta do camarote" (Sites Incríveis)
+
+Pedido: UI/UX em nível premium, mostrando a essência da Diamond como o melhor clube feminino de Salvador.
+Mantém tudo o que a v5 faz (agenda com mapa e "Quero ir" pelo WhatsApp, formulário para marcas com prévia, passos para entrar).
+
+### As 7 respostas
+1. **O que faz da Diamond a melhor:** acesso que ninguém tem. As Angels entram onde os outros não entram.
+2. **Vibe:** porta do camarote. Exclusiva, magnética, noite de Salvador. Referências: a corda de veludo na entrada, o segurança com a lista, a pulseira no pulso, a vista do camarote.
+3. **Caminho:** a noite, da porta ao camarote. Na porta → do lado de dentro → o acesso → a agenda → para marcas → seu nome na lista.
+4. **Convicção:** com a Diamond, a porta se abre.
+5. **Pico:** atravessar o diamante. O diamante cresce com a rolagem até a pessoa passar por dentro dele e cair no camarote.
+6. **Movimento-assinatura:** seu nome na lista. A pessoa escreve o nome na porta, ele entra na lista escrito à mão em dourado, acompanha a visita e vai pronto na mensagem do WhatsApp no final.
+7. **Materiais:** logo; vídeos de eventos, agenda real e logos de parceiros existem, mas ainda não foram enviados. Entram em espaços prontos; nada é inventado.
+
+### Jornada em cenas
+| # | Cena | Vê | Sente | Passa a acreditar | Efeito | Energia |
+|---|---|---|---|---|---|---|
+| 1 | Na porta | Título à esquerda; à direita a "Lista Diamond" com a próxima linha livre para o nome; corda de veludo entre dois pilares dourados atravessando a tela | Curiosidade, "quero estar nessa lista" | Isto é exclusivo | Assinatura (nome escrito à mão) + corda que balança e se solta | Média |
+| 2 | Do lado de dentro | Texto editorial ancorado à esquerda ("Bem-vinda, {nome}"), pilares como placas de porta gravadas, 15,6 mil seguidoras | Acolhimento | Existe um clube de verdade | Revelações | Calma |
+| 3 | O acesso (PICO) | Cena presa: um diamante de traços dourados cresce até a pessoa atravessá-lo; do outro lado, o camarote aceso e os quatro acessos um a um | Arrepio, entrada | **Com a Diamond, a porta se abre** | Máscara em forma de diamante que se expande (cena fixa, 5 telas; 4 no celular) | Máxima |
+| 4 | A agenda | Parede de cartazes verticais que desliza de lado; toque abre local, mapa e "Quero ir" já com o nome | Desejo, urgência | Acontece de verdade e tem data | Trilho horizontal com arraste | Média |
+| 5 | Para marcas | "A outra porta": serviços, fluxo e o formulário com prévia do WhatsApp; espaço para logos de parceiros (aparece só quando houver) | Confiança | A Diamond leva o público certo | Fundo que viaja para rubi | Calma |
+| 6 | Seu nome na lista | A lista volta com o nome da visitante; três passos; UMA chamada: confirmar pelo WhatsApp | Pertencimento | Só falta eu confirmar | Assinatura fecha o ciclo | Resolve |
+
+**Curva:** média, calma, MÁXIMA, média, calma, resolução.
+
+### Direção visual
+- **Paleta:** preto de camarote, rubi (da pedra do logo) como superfície de destaque, champanhe para leitura, ouro polido só na corda, na lista e no botão principal.
+- **Tipografia:** Italiana (letreiro fino de fachada) nos títulos; Pinyon Script só para os nomes escritos na lista; Albert Sans na leitura.
+- **Detalhe só deste negócio:** a lista de convidadas com numeração de entrada, a corda de veludo e o carimbo "na lista".
+
+### Estrutura de código
+components/secoes · components/ui · components/efeitos · components/formularios · conteudo/ (dados que a equipe edita) · lib/ (funções).
+SEO: dados estruturados de evento (Event), sitemap e robots; imagem de compartilhamento 1200×630.
+
+---
+
 ## v5 (2026-09-30) — proposta unificada
 
 Pedido: unificar num só site (1) os eventos onde a Diamond está presente ou em parceria, com foto, localização e informações;

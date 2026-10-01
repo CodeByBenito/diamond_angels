@@ -1,30 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Cormorant_Garamond, Manrope } from "next/font/google";
+import { Albert_Sans, Italiana, Pinyon_Script } from "next/font/google";
+import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
-/* Fontes baixadas no build e servidas pelo próprio site (sem depender do Google em produção).
-   Cinzel = as capitulares romanas do logo · Cormorant = o itálico editorial · Manrope = leitura */
-const marca = Cinzel({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--f-marca", display: "swap" });
-const titulo = Cormorant_Garamond({ weight: ["400", "500"], style: ["normal", "italic"], subsets: ["latin"], variable: "--f-titulo", display: "swap" });
-const texto = Manrope({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--f-texto", display: "swap" });
+/* Fontes baixadas no build e servidas pelo próprio site.
+   Italiana = letreiro fino de fachada · Pinyon Script = nomes escritos na lista · Albert Sans = leitura */
+const titulo = Italiana({ weight: "400", subsets: ["latin"], variable: "--f-titulo", display: "swap" });
+const nome = Pinyon_Script({ weight: "400", subsets: ["latin"], variable: "--f-nome", display: "swap" });
+const texto = Albert_Sans({ weight: ["400", "500", "600"], subsets: ["latin"], variable: "--f-texto", display: "swap" });
 
 export const metadata: Metadata = {
-  // Defina NEXT_PUBLIC_SITE_URL na hospedagem; na Vercel, cai no domínio de produção automaticamente
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
-      (process.env.VERCEL_PROJECT_PRODUCTION_URL
-        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-        : "http://localhost:3000"),
-  ),
+  metadataBase: new URL(SITE_URL),
   title: "Diamond Angels · O clube feminino de Salvador",
-  description: "Diamond Angels, o clube feminino de Salvador. Agenda de eventos, lista VIP, benefícios exclusivos e divulgação de eventos para marcas e produtoras.",
+  description:
+    "Diamond Angels, o clube feminino de Salvador. Coloque seu nome na lista: eventos, lista VIP, benefícios exclusivos e divulgação para marcas e produtoras.",
   openGraph: {
-    title: "Diamond Angels",
-    description: "O clube feminino de Salvador. Eventos, lista VIP e benefícios exclusivos.",
-    images: [{ url: "/og.png" }],
+    title: "Diamond Angels · O clube feminino de Salvador",
+    description: "Com a Diamond, a porta se abre. Eventos, lista VIP e benefícios exclusivos.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Diamond Angels" }],
     locale: "pt_BR",
     type: "website",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
@@ -36,7 +33,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${marca.variable} ${titulo.variable} ${texto.variable}`}>
+    <html lang="pt-BR" className={`${titulo.variable} ${nome.variable} ${texto.variable}`}>
       <body>{children}</body>
     </html>
   );

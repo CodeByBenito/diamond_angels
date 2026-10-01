@@ -1,0 +1,37 @@
+.dentro { overflow: hidden; }
+.marcaDagua { position: absolute; left: -8%; bottom: -4%; width: min(520px, 60vw); opacity: 0.045; pointer-events: none; }
+.grade { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(48px, 8vw, 120px); align-items: center; }
+.texto { display: grid; gap: 22px; }
+.saudacao { font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: 1.1; margin-block: -4px -10px; }
+.numero { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; padding-top: 26px; border-top: 1px solid var(--linha); width: fit-content; }
+.numero b { font: 400 clamp(3rem, 6vw, 4.4rem)/1 var(--f-titulo), serif; font-weight: 400; color: var(--ouro-claro); }
+.numero span { color: var(--suave); }
+.numero u { text-decoration-color: var(--linha-forte); text-underline-offset: 4px; transition: color 0.4s; }
+.numero:hover u { color: var(--ouro-claro); }
+
+/* Placas de porta gravadas: moldura dupla, parafusos nos cantos */
+.placas { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.placa {
+  position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 4px 20px; padding: 26px 28px;
+  border: 1px solid var(--linha-forte); border-radius: 4px;
+  background: linear-gradient(135deg, rgba(214, 173, 98, 0.08), rgba(214, 173, 98, 0.02) 50%, rgba(214, 173, 98, 0.06));
+  transition: transform 0.9s var(--ease), border-color 0.5s;
+}
+.placa::before { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(214, 173, 98, 0.14); border-radius: 2px; pointer-events: none; }
+.placa::after {
+  content: ""; position: absolute; inset: 12px; pointer-events: none;
+  background:
+    radial-gradient(circle, var(--ouro) 1.6px, transparent 2.2px) left top / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ouro) 1.6px, transparent 2.2px) right top / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ouro) 1.6px, transparent 2.2px) left bottom / 6px 6px no-repeat,
+    radial-gradient(circle, var(--ouro) 1.6px, transparent 2.2px) right bottom / 6px 6px no-repeat;
+  opacity: 0.7;
+}
+.placa:hover { transform: translateX(8px); border-color: var(--ouro); }
+.num { grid-row: span 2; align-self: center; font: 400 2.2rem/1 var(--f-titulo), serif; color: var(--ouro); text-align: center; }
+.placa h3 { font-size: 1.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.placa p { color: var(--suave); font-size: 0.95rem; }
+.placas:nth-child(n) .placa:nth-child(2) { margin-left: clamp(0px, 3vw, 40px); }
+.placas:nth-child(n) .placa:nth-child(3) { margin-left: clamp(0px, 6vw, 80px); }
+@media (max-width: 900px) { .grade { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .placa { grid-template-columns: 44px 1fr; padding: 22px 20px; } .num { font-size: 1.7rem; } .placa h3 { font-size: 1.55rem; } }

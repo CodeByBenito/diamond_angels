@@ -1,0 +1,8 @@
+.proximo { display: inline-flex; align-items: center; gap: 16px; padding: 10px 22px 10px 10px; border: 1px solid var(--linha); border-radius: 999px; background: rgba(18, 11, 13, 0.6); transition: border-color 0.5s, background-color 0.5s; }
+.proximo:hover { border-color: var(--linha-forte); background: rgba(42, 7, 16, 0.6); }
+.data { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--rubi); color: var(--ouro-claro); font: 600 0.58rem/1 var(--f-texto), sans-serif; letter-spacing: 0.16em; }
+.data b { font: 400 1.35rem/1 var(--f-titulo), serif; letter-spacing: 0; color: var(--champanhe); }
+.info { display: grid; gap: 2px; }
+.info :global(.rotulo) { font-size: 0.6rem; }
+.info b { font: 400 1.3rem/1.1 var(--f-titulo), serif; }
+.vazio { display: block; min-height: 72px; }

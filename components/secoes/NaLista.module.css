@@ -1,0 +1,15 @@
+.final { overflow: hidden; border-top: 1px solid var(--linha); }
+.aura { position: absolute; inset: 0; background: radial-gradient(50% 60% at 75% 100%, rgba(142, 26, 47, 0.45), transparent 70%), radial-gradient(30% 30% at 20% 20%, rgba(242, 219, 160, 0.06), transparent 70%); pointer-events: none; }
+.grade { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 104px); align-items: center; }
+.texto { display: grid; gap: 22px; }
+.texto h2 em { display: block; }
+.passos { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.passos li { display: grid; grid-template-columns: 56px 1fr; gap: 2px 16px; padding-block: 18px; border-top: 1px solid var(--linha); }
+.passos li:last-child { border-bottom: 1px solid var(--linha); }
+.num { grid-row: span 2; font: 400 2rem/1 var(--f-titulo), serif; color: var(--ouro); }
+.passos b { font-weight: 600; }
+.passos span:last-child { color: var(--suave); font-size: 0.95rem; }
+.lado { display: grid; justify-items: center; gap: 22px; }
+.cta { width: 100%; max-width: 520px; }
+.alternativa { font-size: 0.9rem; color: var(--suave); }
+@media (max-width: 900px) { .grade { grid-template-columns: minmax(0, 1fr); } }

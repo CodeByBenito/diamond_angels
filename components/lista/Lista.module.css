@@ -1,0 +1,47 @@
+.lista {
+  position: relative; width: 100%; max-width: 460px; padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--linha-forte); border-radius: 6px;
+  background: linear-gradient(160deg, rgba(42, 7, 16, 0.92), rgba(12, 8, 9, 0.96) 60%);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(242, 219, 160, 0.12);
+}
+.lista::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(214, 173, 98, 0.16); border-radius: 3px; pointer-events: none; }
+.cab { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--linha-forte); }
+.cab img { width: 34px; height: 34px; object-fit: contain; }
+.titulo { font: 400 1.7rem/1 var(--f-titulo), serif; letter-spacing: 0.06em; }
+.sub { margin-top: 4px; font: 600 0.62rem/1 var(--f-texto), sans-serif; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ouro); }
+.linhas { list-style: none; margin: 0; padding: 0; }
+.linhas li { position: relative; display: flex; align-items: center; gap: 14px; min-height: 58px; border-bottom: 1px solid var(--linha); }
+.num { flex: none; width: 24px; font: 600 0.66rem/1 var(--f-texto), sans-serif; letter-spacing: 0.1em; color: var(--suave-2); font-variant-numeric: tabular-nums; }
+.tarja { height: 9px; border-radius: 2px; background: linear-gradient(90deg, rgba(214, 173, 98, 0.28), rgba(214, 173, 98, 0.1)); }
+.reservado { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font: 600 0.58rem/1 var(--f-texto), sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: var(--suave-2); }
+.reservado :global(.icone) { width: 13px; height: 13px; }
+.livre { min-height: 76px !important; border-bottom-color: var(--linha-forte) !important; }
+.livre::before { content: ""; position: absolute; left: -12px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: var(--ouro); box-shadow: 0 0 12px 2px rgba(242, 219, 160, 0.6); }
+.form { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.form input {
+  flex: 1; min-width: 0; height: 44px; padding: 0 2px; border: 0; border-bottom: 1px dashed var(--linha-forte); border-radius: 0; background: transparent;
+  font: 400 1.9rem/1 var(--f-nome), cursive; color: var(--ouro-claro);
+}
+.form input::placeholder { font: 400 1rem/1 var(--f-texto), sans-serif; color: var(--suave-2); letter-spacing: 0.02em; }
+.form input:focus { outline: none; border-bottom-color: var(--ouro); }
+.nome { flex: 1; min-width: 0; font-size: clamp(1.9rem, 3.2vw, 2.4rem); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 4px; }
+.escrevendo { animation: escrever 1.6s cubic-bezier(0.55, 0, 0.3, 1) both; }
+@keyframes escrever { from { clip-path: inset(-20% 100% -20% 0); } to { clip-path: inset(-20% 0 -20% 0); } }
+.carimbo {
+  flex: none; display: inline-flex; align-items: center; gap: 5px; padding: 6px 10px; border: 1.5px solid var(--rubi-vivo); border-radius: 4px;
+  font: 600 0.6rem/1 var(--f-texto), sans-serif; letter-spacing: 0.2em; text-transform: uppercase; color: #ec8a9c; transform: rotate(-8deg);
+}
+.carimbo :global(.icone) { width: 13px; height: 13px; }
+.carimbando { animation: carimbar 0.55s 1.35s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+@keyframes carimbar { from { opacity: 0; transform: rotate(-8deg) scale(1.9); } to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+.rodape { margin-top: 16px; font-size: 0.8rem; color: var(--suave-2); min-height: 22px; }
+.editar { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--suave); cursor: pointer; font-size: 0.8rem; transition: color 0.3s; }
+.editar:hover { color: var(--ouro-claro); }
+.editar :global(.icone) { width: 14px; height: 14px; }
+.final { max-width: 520px; margin-inline: auto; }
+@media (max-width: 420px) {
+  .form { flex-wrap: wrap; }
+  .form input { flex-basis: 100%; }
+  .form :global(.btn) { width: 100%; }
+  .livre { padding-block: 10px; }
+}

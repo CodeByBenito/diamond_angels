@@ -1,0 +1,9 @@
+.corda { position: relative; height: 190px; pointer-events: none; }
+.svg { position: absolute; left: 0; top: 0; width: 100%; overflow: visible; }
+.veludo { fill: none; stroke: url(#veludo); stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55)); }
+.brilho { fill: none; stroke: rgba(255, 190, 200, 0.28); stroke-width: 2; stroke-linecap: round; transform: translateY(-3px); }
+.pilar { position: absolute; top: 22px; width: 12px; height: 150px; border-radius: 6px 6px 2px 2px; background: linear-gradient(90deg, #7a5424, #f2dba0 40%, #d6ad62 60%, #7a5424); box-shadow: 0 16px 24px -10px rgba(0, 0, 0, 0.8); }
+.pilar::before { content: ""; position: absolute; left: 50%; top: -14px; width: 24px; height: 24px; margin-left: -12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff3cf, #d6ad62 45%, #7a5424 90%); }
+.pilar::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 56px; height: 12px; margin-left: -28px; border-radius: 50%; background: radial-gradient(ellipse, #d6ad62, #5c3e1a 70%); }
+.esq { left: 10px; }
+.dir { right: 10px; }

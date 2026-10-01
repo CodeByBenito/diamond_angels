@@ -1,0 +1,18 @@
+.porta { position: relative; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; padding-block: calc(var(--topo) + clamp(24px, 5vh, 64px)) clamp(32px, 6vh, 72px); overflow: hidden; }
+.luz { position: absolute; inset: -20% -10% 20% 30%; background: radial-gradient(45% 45% at 62% 45%, rgba(142, 26, 47, 0.55), transparent 70%), radial-gradient(22% 22% at 70% 38%, rgba(242, 219, 160, 0.1), transparent 70%); pointer-events: none; }
+.grade { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.texto { display: grid; justify-items: start; gap: 22px; }
+.logo { width: clamp(120px, 12vw, 170px); height: auto; margin-bottom: 8px; filter: drop-shadow(0 14px 40px rgba(214, 173, 98, 0.2)); }
+.texto h1 { font-size: clamp(3rem, 7vw, 6.8rem); line-height: 0.96; letter-spacing: 0.01em; }
+.texto h1 em { display: block; }
+.sub { color: var(--suave); max-width: 46ch; font-size: clamp(1rem, 1.25vw, 1.1rem); }
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
+.ladoLista { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: end; min-width: 0; }
+/* a corda passa na frente da base da lista, como na porta de verdade */
+.corda { position: relative; z-index: 2; width: 100%; max-width: 500px; margin-top: -54px; margin-right: -20px; }
+@media (max-width: 900px) {
+  .grade { grid-template-columns: minmax(0, 1fr); }
+  .ladoLista { justify-items: start; }
+  .corda { margin-right: 0; margin-left: -20px; }
+  .luz { inset: -10% -40% 30% -10%; }
+}

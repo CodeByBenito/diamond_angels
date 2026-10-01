@@ -1,0 +1,31 @@
+/* Formulário para marcas + prévia da mensagem no WhatsApp */
+.form-marcas { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: clamp(24px, 3vw, 40px); align-items: start; }
+.formulario { padding: clamp(24px, 4vw, 48px); background: rgba(10, 7, 8, 0.6); border: 1px solid var(--linha); border-radius: 8px; display: grid; gap: 36px; }
+.formulario fieldset { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 18px; }
+.formulario legend { padding: 0; margin-bottom: 20px; }
+.form-envio { display: grid; gap: 14px; justify-items: start; padding-top: 28px; border-top: 1px solid var(--linha); }
+.aviso { font-size: 0.88rem; color: var(--suave); }
+
+.previa { position: sticky; top: calc(var(--topo) + 24px); display: grid; gap: 14px; }
+.zap { border-radius: 16px; overflow: hidden; border: 1px solid rgba(239, 228, 210, 0.1); background: #0b141a; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9); }
+.zap-topo { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: #202c33; }
+.zap-topo img { width: 36px; height: 36px; border-radius: 50%; background: var(--noite); object-fit: contain; }
+.zap-topo b { display: block; font-weight: 600; font-size: 0.95rem; line-height: 1.2; }
+.zap-topo span { font-size: 0.76rem; color: #8696a0; }
+.zap-conversa { padding: 20px 16px 24px; min-height: 280px; background: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0) 0 0 / 18px 18px, #0b141a; }
+.bolha {
+  position: relative; margin-left: auto; max-width: 94%; padding: 10px 12px 12px; border-radius: 10px 0 10px 10px;
+  background: #005c4b; color: #e9edef; font-size: 0.9rem; line-height: 1.5; overflow-wrap: anywhere;
+}
+.bolha::after { content: ""; position: absolute; right: -8px; top: 0; border-left: 8px solid #005c4b; border-bottom: 10px solid transparent; }
+.bolha .linha { display: block; }
+.bolha b { font-weight: 700; }
+@media (max-width: 1000px) {
+  .form-marcas { grid-template-columns: 1fr; }
+  .previa { position: static; }
+}
+@media (max-width: 560px) {
+  .formulario { padding: 22px 18px; }
+  .formulario fieldset { grid-template-columns: 1fr; }
+  .form-envio .btn { width: 100%; }
+}
