@@ -126,7 +126,7 @@ export default function Agenda() {
 
   /*
    * Esteira: os cartazes deslizam sozinhos, desaceleram na ponta, param um instante e voltam.
-   * Para enquanto a visitante usa (mouse em cima, toque, arraste, roda, teclado, detalhe aberto),
+   * Continua andando com o mouse em cima; para só enquanto a visitante mexe (toque, arraste, roda, teclado, detalhe aberto),
    * quando a seção sai da tela, quando a aba fica oculta ou pelo botão de pausa.
    * Com "reduzir movimento" ligado no sistema, a esteira não anda sozinha.
    */
@@ -134,7 +134,7 @@ export default function Agenda() {
   useEffect(() => {
     const t = trilho.current;
     if (!t || pausada || matchMedia(MQ.reduzido).matches) return;
-    const VEL = matchMedia(MQ.celular).matches ? 30 : 42; // px por segundo
+    const VEL = matchMedia(MQ.celular).matches ? 44 : 64; // px por segundo
     const FREIO = 110; // px antes da ponta em que começa a desacelerar
     let pos = t.scrollLeft;
     let ultimo = pos;
@@ -160,8 +160,9 @@ export default function Agenda() {
       ocupado = false;
       retomarEm = performance.now() + atraso;
     };
-    const entrouMouse = (e: PointerEvent) => e.pointerType === "mouse" && ocupar();
-    const saiuMouse = (e: PointerEvent) => e.pointerType === "mouse" && soltar(700)();
+    // mouse: para só enquanto o botão está apertado (arrastando), não ao passar por cima
+    const apertouMouse = (e: PointerEvent) => e.pointerType === "mouse" && e.button === 0 && ocupar();
+    const soltouMouse = (e: PointerEvent) => e.pointerType === "mouse" && soltar(1200)();
     const fimToque = soltar(2600);
     const rodou = () => {
       retomarEm = performance.now() + 2600;
@@ -176,8 +177,9 @@ export default function Agenda() {
       }
     };
 
-    t.addEventListener("pointerenter", entrouMouse);
-    t.addEventListener("pointerleave", saiuMouse);
+    t.addEventListener("pointerdown", apertouMouse);
+    t.addEventListener("pointerup", soltouMouse);
+    t.addEventListener("pointercancel", soltouMouse);
     t.addEventListener("touchstart", ocupar, { passive: true });
     t.addEventListener("touchend", fimToque);
     t.addEventListener("wheel", rodou, { passive: true });
@@ -226,8 +228,9 @@ export default function Agenda() {
       cancelAnimationFrame(raf);
       io.disconnect();
       t.classList.remove(s.esteira);
-      t.removeEventListener("pointerenter", entrouMouse);
-      t.removeEventListener("pointerleave", saiuMouse);
+      t.removeEventListener("pointerdown", apertouMouse);
+      t.removeEventListener("pointerup", soltouMouse);
+      t.removeEventListener("pointercancel", soltouMouse);
       t.removeEventListener("touchstart", ocupar);
       t.removeEventListener("touchend", fimToque);
       t.removeEventListener("wheel", rodou);

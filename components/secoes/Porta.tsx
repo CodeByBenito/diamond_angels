@@ -70,7 +70,7 @@ export default function Porta() {
           </div>
         </div>
         <div className={s.ladoLista}>
-          <Lista variante="porta" />
+          <Lista />
           <div className={s.corda}>
             <Corda />
           </div>

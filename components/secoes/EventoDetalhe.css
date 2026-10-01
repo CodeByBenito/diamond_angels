@@ -60,3 +60,17 @@
   .detalhe-foto:has(picture) { aspect-ratio: auto; height: 64svh; background: var(--noite); }
   .detalhe-foto picture { position: static; max-height: none; }
 }
+
+/* Celular: folha que sobe de baixo, com alça para arrastar, flyer mais baixo e ações sempre à mão */
+.puxador { display: none; }
+@media (max-width: 760px) {
+  .puxador { display: block; position: absolute; top: 8px; left: 50%; z-index: 4; width: 44px; height: 5px; margin-left: -22px; border-radius: 3px; background: rgba(239, 228, 210, 0.45); }
+  .detalhe-foto:has(picture) { height: 52svh; }
+  .detalhe-acoes {
+    position: sticky; bottom: 0; z-index: 3; justify-self: stretch; margin-inline: calc(-1 * clamp(28px, 4vw, 48px)); width: auto;
+    padding: 14px clamp(28px, 4vw, 48px) calc(14px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--noite-2) 72%, rgba(18, 11, 13, 0));
+  }
+  .detalhe-acoes .btn { flex: 1 1 calc(50% - 5px); padding: 0 14px; }
+  .detalhe-info { padding-bottom: 0; }
+}

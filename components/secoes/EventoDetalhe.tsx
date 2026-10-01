@@ -40,7 +40,50 @@ export default function EventoDetalhe({ evento, aoFechar }: { evento: Evento | n
     } else if (d.open) d.close();
   }, [evento]);
 
+  /* Celular: arrastar a folha para baixo (com ela no topo) fecha o detalhe, como nos apps */
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    let inicio = -1;
+    let dy = 0;
+    const comeca = (e: TouchEvent) => {
+      if (!matchMedia("(max-width: 760px)").matches || d.scrollTop > 0) return;
+      inicio = e.touches[0].clientY;
+      dy = 0;
+    };
+    const move = (e: TouchEvent) => {
+      if (inicio < 0) return;
+      dy = e.touches[0].clientY - inicio;
+      if (dy <= 0 || d.scrollTop > 0) {
+        d.style.transform = "";
+        return;
+      }
+      d.style.transition = "none";
+      d.style.transform = `translateY(${dy}px)`;
+    };
+    const solta = () => {
+      if (inicio < 0) return;
+      inicio = -1;
+      d.style.transition = "";
+      if (dy > 110) {
+        d.style.transform = "translateY(100%)";
+        setTimeout(() => d.close(), 220);
+      } else d.style.transform = "";
+    };
+    d.addEventListener("touchstart", comeca, { passive: true });
+    d.addEventListener("touchmove", move, { passive: true });
+    d.addEventListener("touchend", solta);
+    d.addEventListener("touchcancel", solta);
+    return () => {
+      d.removeEventListener("touchstart", comeca);
+      d.removeEventListener("touchmove", move);
+      d.removeEventListener("touchend", solta);
+      d.removeEventListener("touchcancel", solta);
+    };
+  }, []);
+
   const fechar = () => {
+    if (ref.current) ref.current.style.transform = ""; // a próxima abertura começa do jeito certo
     getLenis()?.start();
     aoFechar();
   };
@@ -59,6 +102,7 @@ export default function EventoDetalhe({ evento, aoFechar }: { evento: Evento | n
     >
       {evento && (
         <div className="detalhe-corpo">
+          <span className="puxador" aria-hidden="true" />
           <button type="button" className="fechar" onClick={() => ref.current?.close()} aria-label="Fechar">
             <Icone nome="fechar" />
           </button>

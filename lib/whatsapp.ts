@@ -7,8 +7,5 @@ export const linkWhatsApp = (texto: string) => `https://wa.me/${WHATSAPP.numero}
 
 const apresentacao = (nome: string) => (nome ? ` Meu nome é ${nome}.` : "");
 
-export const mensagemEntrar = (nome: string) =>
-  `Olá, Diamond Angels!${apresentacao(nome)} Coloquei meu nome na lista pelo site e quero entrar para o time. Quais são os próximos passos?`;
-
 export const mensagemQueroIr = (e: Evento, nome: string) =>
   `Olá, Diamond Angels!${apresentacao(nome)} Quero ir ao evento *${e.nome}* (${dataBR(e.data)}, ${e.hora}, ${e.local}). Como faço para entrar na lista?`;

@@ -6,3 +6,4 @@
 .info :global(.rotulo) { font-size: 0.6rem; }
 .info b { font: 400 1.3rem/1.1 var(--f-titulo), serif; }
 .vazio { display: block; min-height: 72px; }
+@media (max-width: 760px) { .data { font-size: 0.66rem; } .info :global(.rotulo) { font-size: 0.66rem; } }

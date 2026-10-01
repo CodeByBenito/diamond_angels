@@ -120,3 +120,9 @@ html.lenis, html.lenis body { height: auto; }
 /* ------------------------------------------------------------------ Movimento reduzido: tudo parado e legível
    Segue o botão "Reduzir movimento" do rodapé (classe no <html>), não a configuração do sistema. */
 html.sem-movimento *, html.sem-movimento *::before, html.sem-movimento *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0s !important; }
+
+/* Celular: rótulos pequenos ganham um pouco de corpo (nada abaixo de ~11px) e links-seta viram alvo de toque */
+@media (max-width: 760px) {
+  .rotulo { font-size: 0.74rem; }
+  .link-seta { min-height: 44px; }
+}

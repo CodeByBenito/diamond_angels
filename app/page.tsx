@@ -9,6 +9,7 @@ import Dentro from "@/components/secoes/Dentro";
 import Marcas from "@/components/secoes/Marcas";
 import NaLista from "@/components/secoes/NaLista";
 import Porta from "@/components/secoes/Porta";
+import BarraMobile from "@/components/ui/BarraMobile";
 import Header from "@/components/ui/Header";
 import Rodape from "@/components/ui/Rodape";
 import { jsonLd } from "@/lib/seo";
@@ -40,6 +41,7 @@ export default function Home() {
         <NaLista />
       </main>
       <Rodape />
+      <BarraMobile />
     </ListaProvider>
   );
 }

@@ -1,0 +1,18 @@
+/* Só no celular. Desliza para fora quando não é útil (porta, convite, rodapé, teclado, menu aberto). */
+.barra { display: none; }
+@media (max-width: 760px) {
+  .barra {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 40;
+    display: flex; align-items: center; gap: 8px; padding: 6px; border: 1px solid var(--linha-forte); border-radius: 999px;
+    background: rgba(14, 8, 10, 0.92); box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.9);
+    transition: transform 0.6s var(--ease), opacity 0.4s;
+  }
+  .oculta { transform: translateY(calc(100% + 28px)); opacity: 0; }
+  :global(.menu-aberto) .barra { transform: translateY(calc(100% + 28px)); opacity: 0; }
+  .agenda {
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 64px; min-height: 48px;
+    border-radius: 999px; color: var(--ouro-claro); font: 600 0.62rem/1 var(--f-texto), sans-serif; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .agenda :global(.icone) { width: 20px; height: 20px; }
+  .cta { flex: 1; min-height: 48px; padding: 0 16px; font-size: 0.72rem; overflow: hidden; text-overflow: ellipsis; }
+}

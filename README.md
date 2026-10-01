@@ -38,6 +38,7 @@ Com o domínio pronto, defina `NEXT_PUBLIC_SITE_URL=https://seu-dominio` na hosp
 
 | O quê | Onde |
 |---|---|
+| Perguntas do "Quero ser Angel" (estilos de noite, o que ela quer viver, legenda dos stories) | `conteudo/convite.ts` |
 | Agenda de eventos (nome, data, local, endereço do mapa, foto, Diamond ou parceria) | `conteudo/eventos.ts` — mude `EVENTOS_SAO_EXEMPLO` para `false` quando forem reais (só então os eventos vão para o Google) |
 | Fotos dos eventos | original em `originais/eventos/` + `npm run imagens`, e aponte o campo `foto` para o `.webp` (vertical 4:5) |
 | Logos de parceiros (só com autorização) | original em `originais/parceiros/` + `npm run imagens` + `conteudo/parceiros.ts` — a faixa só aparece quando a lista tiver alguém |

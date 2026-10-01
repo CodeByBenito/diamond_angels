@@ -25,12 +25,6 @@ export const ACESSOS: { icone: IconeAcesso; titulo: string; texto: string }[] = 
   { icone: "tacas", titulo: "Conexões", texto: "Convivência com outras mulheres, produtores e marcas da cidade." },
 ];
 
-export const PASSOS_ENTRAR = [
-  { titulo: "Seu nome na lista", texto: "Escreva seu nome e toque em confirmar." },
-  { titulo: "A mensagem sai pronta", texto: "O WhatsApp da Diamond abre com o seu pedido já escrito." },
-  { titulo: "A equipe responde", texto: "Você recebe as próximas etapas para entrar no time." },
-] as const;
-
 export const SERVICOS = [
   { titulo: "No perfil", texto: "Posts, stories e reels no @diamondangels3." },
   { titulo: "Nos eventos", texto: "Time de promotoria na porta, no salão e nas ações de rua." },

@@ -9,14 +9,12 @@ import { useLista } from "./ListaProvider";
  * A "Lista Diamond": três linhas reservadas e a próxima linha livre para o nome da visitante.
  * Ao entrar, o nome é escrito à mão em dourado e recebe o carimbo "Na lista".
  */
-export default function Lista({ variante = "porta" }: { variante?: "porta" | "final" }) {
+export default function Lista() {
   const { nome, pronto, entrar } = useLista();
   const [editando, setEditando] = useState(false);
   const [recemEscrito, setRecemEscrito] = useState(false);
   const [hoje, setHoje] = useState("");
   const campo = useRef<HTMLInputElement>(null);
-  const raiz = useRef<HTMLDivElement>(null);
-  const [rebater, setRebater] = useState(false);
   const id = useId();
 
   useEffect(() => {
@@ -29,22 +27,6 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
   }, [editando]);
 
   const mostrarNome = pronto && nome && !editando;
-
-  /* Fechamento da assinatura: na lista final, o carimbo bate de novo quando ela entra na tela */
-  useEffect(() => {
-    const el = raiz.current;
-    if (variante !== "final" || !el || !mostrarNome) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (!e.isIntersecting) return;
-        setRebater(true);
-        io.disconnect();
-      },
-      { threshold: 0.6 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [variante, mostrarNome]);
 
   function enviar(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
@@ -59,7 +41,7 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
   }
 
   return (
-    <div ref={raiz} className={`${s.lista} ${s[variante]}`}>
+    <div className={s.lista}>
       <div className={s.cab}>
         <img src="/logo-mark.webp" alt="" width={34} height={34} />
         <div>
@@ -84,7 +66,7 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
           {mostrarNome ? (
             <>
               <span className={`nome-escrito ${s.nome}${recemEscrito ? ` ${s.escrevendo}` : ""}`}>{nome}</span>
-              <span className={`${s.carimbo}${recemEscrito ? ` ${s.carimbando}` : rebater ? ` ${s.rebatendo}` : ""}`}>
+              <span className={`${s.carimbo}${recemEscrito ? ` ${s.carimbando}` : ""}`}>
                 <Icone nome="check" />
                 Na lista
               </span>
