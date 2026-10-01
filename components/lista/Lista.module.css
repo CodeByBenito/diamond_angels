@@ -33,6 +33,7 @@
 }
 .carimbo :global(.icone) { width: 13px; height: 13px; }
 .carimbando { animation: carimbar 0.55s 1.35s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+.rebatendo { animation: carimbar 0.55s 0.3s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
 @keyframes carimbar { from { opacity: 0; transform: rotate(-8deg) scale(1.9); } to { opacity: 1; transform: rotate(-8deg) scale(1); } }
 .rodape { margin-top: 16px; font-size: 0.8rem; color: var(--suave-2); min-height: 22px; }
 .editar { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--suave); cursor: pointer; font-size: 0.8rem; transition: color 0.3s; }

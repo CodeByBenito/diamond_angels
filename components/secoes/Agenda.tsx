@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { EVENTOS, EVENTOS_SAO_EXEMPLO, type Evento, type Realizacao } from "@/conteudo/eventos";
 import { hojeISO, partesData } from "@/lib/datas";
 import { EASE, gsap, MQ } from "@/lib/movimento";
-import Icone from "../ui/Icone";
+import Icone from "../icones/Icone";
 import s from "./Agenda.module.css";
 import EventoDetalhe, { acessoEvento, FotoEvento } from "./EventoDetalhe";
 
@@ -37,6 +37,9 @@ export default function Agenda() {
   const temLista = lista.length > 0;
   detalheAberto.current = aberto !== null;
   const contagem = (f: Filtro) => futuros.filter((e) => f === "todos" || e.realizacao === f).length;
+  // só mostra categorias com eventos; com uma categoria só, filtrar não muda nada e o grupo some
+  const filtrosVisiveis = FILTROS.filter((f) => f.id === "todos" || contagem(f.id) > 0);
+  const temFiltros = filtrosVisiveis.length > 2;
 
   /* Troca de filtro: os cartazes entram de novo, em sequência */
   // biome-ignore lint/correctness/useExhaustiveDependencies: roda de propósito a cada troca de filtro
@@ -261,21 +264,22 @@ export default function Agenda() {
           </p>
         </div>
         <div className={s.controles} data-reveal>
-          <div className={s.filtros} role="group" aria-label="Filtrar eventos">
-            {FILTROS.map((f) => (
-              <button
-                key={f.id}
-                className={s.filtro}
-                type="button"
-                aria-pressed={filtro === f.id}
-                disabled={f.id !== "todos" && contagem(f.id) === 0}
-                onClick={() => setFiltro(f.id)}
-              >
-                {f.rotulo}
-                <small>{contagem(f.id)}</small>
-              </button>
-            ))}
-          </div>
+          {temFiltros && (
+            <div className={s.filtros} role="group" aria-label="Filtrar eventos">
+              {filtrosVisiveis.map((f) => (
+                <button
+                  key={f.id}
+                  className={s.filtro}
+                  type="button"
+                  aria-pressed={filtro === f.id}
+                  onClick={() => setFiltro(f.id)}
+                >
+                  {f.rotulo}
+                  <small>{contagem(f.id)}</small>
+                </button>
+              ))}
+            </div>
+          )}
           <div className={s.setas}>
             <button
               type="button"
@@ -285,7 +289,7 @@ export default function Agenda() {
               aria-label={pausada ? "Retomar a esteira de cartazes" : "Pausar a esteira de cartazes"}
               title={pausada ? "Retomar" : "Pausar"}
             >
-              <Icone id={pausada ? "play" : "pausa"} />
+              <Icone nome={pausada ? "play" : "pausa"} />
             </button>
             <button
               type="button"
@@ -294,7 +298,7 @@ export default function Agenda() {
               aria-label="Cartazes anteriores"
               disabled={nasPontas.inicio}
             >
-              <Icone id="seta" className={s.voltar} />
+              <Icone nome="seta" className={s.voltar} />
             </button>
             <button
               type="button"
@@ -303,7 +307,7 @@ export default function Agenda() {
               aria-label="Próximos cartazes"
               disabled={nasPontas.fim}
             >
-              <Icone id="seta" />
+              <Icone nome="seta" />
             </button>
           </div>
         </div>
@@ -338,7 +342,7 @@ export default function Agenda() {
                   </button>
                 </h3>
                 <p className={s.meta}>
-                  <Icone id="pin" />
+                  <Icone nome="pin" />
                   {e.local} · {semana}, {e.hora}
                 </p>
               </li>

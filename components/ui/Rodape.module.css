@@ -2,9 +2,14 @@
 .grade { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
 .grade > * { display: grid; align-content: start; gap: 12px; }
 .marca img { width: 140px; height: auto; }
-.grade a { display: inline-flex; align-items: center; gap: 10px; width: fit-content; transition: color 0.4s; }
+.grade a { display: inline-flex; align-items: center; gap: 10px; width: fit-content; white-space: nowrap; transition: color 0.4s; }
 .grade a:hover { color: var(--ouro-claro); }
 .grade :global(.icone) { color: var(--ouro); }
 .base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 56px; padding-block: 24px calc(24px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--linha); font-size: 0.82rem; color: var(--suave-2); }
 .base a:hover { color: var(--ouro-claro); }
 @media (max-width: 760px) { .grade { grid-template-columns: 1fr 1fr; } .marca { grid-column: 1 / -1; } }
+@media (max-width: 440px) { .grade { grid-template-columns: 1fr; gap: 32px; } }
+.acoesBase { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+.preferencia { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border: 1px solid var(--linha); border-radius: 999px; background: none; color: var(--suave); font-size: 0.8rem; cursor: pointer; transition: border-color 0.4s, color 0.4s; }
+.preferencia:hover { border-color: var(--linha-forte); color: var(--ouro-claro); }
+.preferencia :global(.icone) { width: 14px; height: 14px; color: var(--ouro); }

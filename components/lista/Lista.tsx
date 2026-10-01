@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
 import { partesData } from "@/lib/datas";
-import Icone from "../ui/Icone";
+import Icone from "../icones/Icone";
 import s from "./Lista.module.css";
 import { useLista } from "./ListaProvider";
 
@@ -15,6 +15,8 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
   const [recemEscrito, setRecemEscrito] = useState(false);
   const [hoje, setHoje] = useState("");
   const campo = useRef<HTMLInputElement>(null);
+  const raiz = useRef<HTMLDivElement>(null);
+  const [rebater, setRebater] = useState(false);
   const id = useId();
 
   useEffect(() => {
@@ -27,6 +29,22 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
   }, [editando]);
 
   const mostrarNome = pronto && nome && !editando;
+
+  /* Fechamento da assinatura: na lista final, o carimbo bate de novo quando ela entra na tela */
+  useEffect(() => {
+    const el = raiz.current;
+    if (variante !== "final" || !el || !mostrarNome) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        setRebater(true);
+        io.disconnect();
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [variante, mostrarNome]);
 
   function enviar(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
@@ -41,7 +59,7 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
   }
 
   return (
-    <div className={`${s.lista} ${s[variante]}`}>
+    <div ref={raiz} className={`${s.lista} ${s[variante]}`}>
       <div className={s.cab}>
         <img src="/logo-mark.webp" alt="" width={34} height={34} />
         <div>
@@ -56,7 +74,7 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
             <span className={s.num}>{String(i + 1).padStart(2, "0")}</span>
             <span className={s.tarja} style={{ width: `${[62, 48, 56][i]}%` }} aria-hidden="true" />
             <span className={s.reservado}>
-              <Icone id="cadeado" />
+              <Icone nome="cadeado" />
               Reservado
             </span>
           </li>
@@ -66,8 +84,8 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
           {mostrarNome ? (
             <>
               <span className={`nome-escrito ${s.nome}${recemEscrito ? ` ${s.escrevendo}` : ""}`}>{nome}</span>
-              <span className={`${s.carimbo}${recemEscrito ? ` ${s.carimbando}` : ""}`}>
-                <Icone id="check" />
+              <span className={`${s.carimbo}${recemEscrito ? ` ${s.carimbando}` : rebater ? ` ${s.rebatendo}` : ""}`}>
+                <Icone nome="check" />
                 Na lista
               </span>
             </>
@@ -97,7 +115,7 @@ export default function Lista({ variante = "porta" }: { variante?: "porta" | "fi
       <p className={s.rodape}>
         {mostrarNome ? (
           <button type="button" className={s.editar} onClick={() => setEditando(true)}>
-            <Icone id="lapis" />
+            <Icone nome="caneta" />
             Trocar o nome
           </button>
         ) : (

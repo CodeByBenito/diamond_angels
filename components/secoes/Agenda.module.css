@@ -60,10 +60,10 @@
 .vazio { margin-top: 32px; padding: 40px 24px; border: 1px dashed var(--linha-forte); border-radius: 6px; text-align: center; color: var(--suave); }
 @media (max-width: 760px) {
   .cab { grid-template-columns: minmax(0, 1fr); }
-  .controles { justify-items: start; }
+  /* filtros à esquerda, pausa à direita (as setas somem: no toque o dedo desliza) */
+  .controles { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; }
   .seta { display: none !important; }
-  .setas { position: absolute; right: var(--gutter); }
-  .controles { position: relative; width: 100%; }
+  .setas { margin-left: auto; }
   .setas button { width: 42px; height: 42px; }
   .trilho { grid-auto-columns: 70%; gap: 14px; }
 }

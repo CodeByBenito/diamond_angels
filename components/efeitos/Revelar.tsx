@@ -8,6 +8,7 @@ import { EASE, gsap, MQ, ScrollTrigger, SplitText } from "@/lib/movimento";
  *  - [data-stagger]     os filhos diretos entram em sequência
  *  - [data-split]       título entra linha a linha, por trás de uma máscara
  *  - [data-parallax]    desloca levemente com a rolagem (valor = intensidade, ex.: 0.15)
+ *  - [data-desvelar]    bloco grande que se revela de cima para baixo (máscara), sem deslocar o conteúdo
  *  - [data-bg="#hex"]   o fundo da página viaja para essa cor quando a seção domina a tela
  * Sem JavaScript ou com movimento reduzido, tudo já está visível.
  */
@@ -54,6 +55,20 @@ export default function Revelar() {
           stagger: 0.1,
           scrollTrigger: { trigger: grupo, start: inicio, once: true },
         });
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-desvelar]").forEach((el) => {
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(0% 0% 100% 0%)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.6,
+            ease: "power3.inOut",
+            clearProps: "clipPath",
+            scrollTrigger: { trigger: el, start: "top 82%", once: true },
+          },
+        );
       });
 
       gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {

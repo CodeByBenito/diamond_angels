@@ -5,9 +5,9 @@ import { dataBR, partesData } from "@/lib/datas";
 import { embedMapa, linkMapa } from "@/lib/mapas";
 import { getLenis } from "@/lib/movimento";
 import { linkWhatsApp, mensagemQueroIr } from "@/lib/whatsapp";
+import Icone from "../icones/Icone";
 import { useLista } from "../lista/ListaProvider";
 import Cartaz from "../ui/Cartaz";
-import Icone from "../ui/Icone";
 import "./EventoDetalhe.css";
 
 export const seloEvento = (e: Evento) =>
@@ -60,7 +60,7 @@ export default function EventoDetalhe({ evento, aoFechar }: { evento: Evento | n
       {evento && (
         <div className="detalhe-corpo">
           <button type="button" className="fechar" onClick={() => ref.current?.close()} aria-label="Fechar">
-            <Icone id="fechar" />
+            <Icone nome="fechar" />
           </button>
           <div className="detalhe-foto">
             <FotoEvento e={evento} />
@@ -70,14 +70,14 @@ export default function EventoDetalhe({ evento, aoFechar }: { evento: Evento | n
             <h3 id="detalhe-titulo">{evento.nome}</h3>
             <ul className="fatos">
               <li>
-                <Icone id="calendario" />
+                <Icone nome="calendario" />
                 {partesData(evento.data).semana}, {dataBR(evento.data)}
               </li>
               <li>
-                <Icone id="relogio" />A partir das {evento.hora}
+                <Icone nome="relogio" />A partir das {evento.hora}
               </li>
               <li>
-                <Icone id="pin" />
+                <Icone nome="pin" />
                 <span>
                   {evento.local}
                   <small>{evento.endereco}</small>
@@ -113,16 +113,16 @@ export default function EventoDetalhe({ evento, aoFechar }: { evento: Evento | n
             </div>
             <div className="detalhe-acoes">
               <a className="btn" href={linkWhatsApp(mensagemQueroIr(evento, nome))} target="_blank" rel="noopener">
-                <Icone id="whatsapp" />
+                <Icone nome="whatsapp" />
                 Quero ir
               </a>
               <a className="btn vazado" href={linkMapa(evento.endereco)} target="_blank" rel="noopener">
-                <Icone id="pin" />
+                <Icone nome="pin" />
                 Como chegar
               </a>
               {evento.instagram && (
                 <a className="btn vazado" href={evento.instagram} target="_blank" rel="noopener">
-                  <Icone id="instagram" />
+                  <Icone nome="instagram" />
                   Instagram
                 </a>
               )}

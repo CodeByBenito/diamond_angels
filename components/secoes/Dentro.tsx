@@ -23,7 +23,9 @@ export default function Dentro() {
           <p className="rotulo" data-reveal>
             Do lado de dentro
           </p>
-          <Saudacao className={s.saudacao} />
+          <div data-reveal data-delay="0.1">
+            <Saudacao className={s.saudacao} />
+          </div>
           <h2 data-split>
             Um clube feito para as <em>mulheres</em> de Salvador.
           </h2>

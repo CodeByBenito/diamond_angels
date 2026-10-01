@@ -53,7 +53,7 @@ h1 em, h2 em { font-style: normal; color: var(--ouro-claro); }
 .rotulo { font: 600 0.7rem/1.4 var(--f-texto), sans-serif; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ouro); }
 .lead { color: var(--suave); font-size: clamp(1rem, 1.25vw, 1.1rem); max-width: 54ch; }
 .nome-escrito { font-family: var(--f-nome), "Snell Roundhand", cursive; font-weight: 400; letter-spacing: 0; color: var(--ouro-claro); }
-.icone { width: 1.15em; height: 1.15em; flex: none; }
+.icone { width: 1.15em; height: 1.15em; flex: none; overflow: visible; }
 .nota { margin-top: 20px; font-size: 0.82rem; color: var(--suave-2); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -74,8 +74,8 @@ html.lenis, html.lenis body { height: auto; }
   transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.4s, color 0.4s, background-color 0.4s;
 }
 .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%); transform: translateX(-110%); transition: transform 0.9s var(--ease); pointer-events: none; }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -14px rgba(214, 173, 98, 0.65); }
-.btn:hover::after { transform: translateX(110%); }
+.btn:hover, .btn:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 34px -14px rgba(214, 173, 98, 0.65); }
+.btn:hover::after, .btn:focus-visible::after { transform: translateX(110%); }
 .btn:active { transform: none; }
 .btn .icone { width: 18px; height: 18px; }
 .btn.vazado { background: transparent; color: var(--ouro-claro); border-color: var(--linha-forte); }
@@ -117,7 +117,6 @@ html.lenis, html.lenis body { height: auto; }
 /* Cartaz gerado (eventos sem foto) */
 .cartaz { display: block; width: 100%; height: 100%; }
 
-/* ------------------------------------------------------------------ Movimento reduzido: tudo parado e legível */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0s !important; }
-}
+/* ------------------------------------------------------------------ Movimento reduzido: tudo parado e legível
+   Segue o botão "Reduzir movimento" do rodapé (classe no <html>), não a configuração do sistema. */
+html.sem-movimento *, html.sem-movimento *::before, html.sem-movimento *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; transition-delay: 0s !important; }

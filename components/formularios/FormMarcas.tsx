@@ -3,7 +3,7 @@ import { cloneElement, useRef, useState } from "react";
 import { WHATSAPP } from "@/conteudo/contato";
 import { dataBR } from "@/lib/datas";
 import { linkWhatsApp } from "@/lib/whatsapp";
-import Icone from "../ui/Icone";
+import Icone from "../icones/Icone";
 import "./FormMarcas.css";
 
 const TIPOS = [
@@ -210,7 +210,7 @@ export default function FormMarcas() {
         </fieldset>
         <div className="form-envio">
           <button className="btn btn-grande" type="submit">
-            <Icone id="whatsapp" />
+            <Icone nome="whatsapp" />
             Enviar pelo WhatsApp
           </button>
           <p className="aviso" role="status">

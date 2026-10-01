@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Albert_Sans, Italiana, Pinyon_Script } from "next/font/google";
+import { SCRIPT_MOVIMENTO } from "@/lib/preferencias";
 import { SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -33,7 +34,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${titulo.variable} ${nome.variable} ${texto.variable}`}>
+    // suppressHydrationWarning: o script abaixo pode acrescentar a classe "sem-movimento" antes do React assumir
+    <html lang="pt-BR" className={`${titulo.variable} ${nome.variable} ${texto.variable}`} suppressHydrationWarning>
+      <head>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: script fixo nosso, roda antes da pintura para não piscar */}
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_MOVIMENTO }} />
+      </head>
       <body>{children}</body>
     </html>
   );

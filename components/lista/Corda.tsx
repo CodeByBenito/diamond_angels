@@ -41,7 +41,18 @@ export default function Corda() {
     ro.observe(el);
     const mm = gsap.matchMedia();
     mm.add(MQ.movimento, () => {
-      gsap.to(estado.current, { balanco: 7, duration: 2.6, ease: "sine.inOut", yoyo: true, repeat: -1, onUpdate: desenhar });
+      const balanco = gsap.to(estado.current, {
+        balanco: 7,
+        duration: 2.6,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        onUpdate: desenhar,
+      });
+      // o balanço só roda com a corda na tela (fora dela, não gasta processamento)
+      const io = new IntersectionObserver(([e]) => (e.isIntersecting ? balanco.play() : balanco.pause()));
+      io.observe(el);
+      return () => io.disconnect();
     });
     return () => {
       ro.disconnect();

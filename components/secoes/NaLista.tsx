@@ -3,9 +3,9 @@ import { LINKS } from "@/conteudo/contato";
 import { PASSOS_ENTRAR } from "@/conteudo/textos";
 import { primeiroNome } from "@/lib/nome";
 import { linkWhatsApp, mensagemEntrar } from "@/lib/whatsapp";
+import Icone from "../icones/Icone";
 import Lista from "../lista/Lista";
 import { useLista } from "../lista/ListaProvider";
-import Icone from "../ui/Icone";
 import s from "./NaLista.module.css";
 
 /** Cena 6 — Seu nome na lista. A lista volta com o nome dela; uma chamada só. */
@@ -48,7 +48,7 @@ export default function NaLista() {
         <div className={s.lado}>
           <Lista variante="final" />
           <a className={`btn btn-grande ${s.cta}`} href={linkWhatsApp(mensagemEntrar(nome))} target="_blank" rel="noopener">
-            <Icone id="whatsapp" />
+            <Icone nome="whatsapp" />
             {comNome ? "Confirmar pelo WhatsApp" : "Quero ser Angel"}
           </a>
           <p className={s.alternativa}>

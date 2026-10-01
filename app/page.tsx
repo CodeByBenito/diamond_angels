@@ -1,6 +1,7 @@
 import Revelar from "@/components/efeitos/Revelar";
 import SmoothScroll from "@/components/efeitos/SmoothScroll";
 import FormMarcas from "@/components/formularios/FormMarcas";
+import SpriteIcones from "@/components/icones/SpriteIcones";
 import { ListaProvider } from "@/components/lista/ListaProvider";
 import Acesso from "@/components/secoes/Acesso";
 import Agenda from "@/components/secoes/Agenda";
@@ -21,6 +22,7 @@ export default function Home() {
     <ListaProvider>
       {/* biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD gerado no build a partir do nosso próprio conteúdo */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }} />
+      <SpriteIcones />
       <SmoothScroll />
       <Revelar />
       <a className="pular" href="#dentro">

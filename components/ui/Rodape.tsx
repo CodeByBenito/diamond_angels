@@ -1,7 +1,8 @@
 import { LINKS, WHATSAPP } from "@/conteudo/contato";
 import { NAV } from "@/conteudo/textos";
 import { linkWhatsApp } from "@/lib/whatsapp";
-import Icone from "./Icone";
+import Icone from "../icones/Icone";
+import PreferenciaMovimento from "./PreferenciaMovimento";
 import s from "./Rodape.module.css";
 
 export default function Rodape() {
@@ -23,26 +24,29 @@ export default function Rodape() {
         <div>
           <p className="rotulo">Contato</p>
           <a href={linkWhatsApp("Olá, Diamond Angels!")} target="_blank" rel="noopener">
-            <Icone id="whatsapp" />
+            <Icone nome="whatsapp" />
             {WHATSAPP.exibicao}
           </a>
           <a href={LINKS.clube} target="_blank" rel="noopener">
-            <Icone id="instagram" />
+            <Icone nome="instagram" />
             @diamondangels3
           </a>
           <a href={LINKS.agencia} target="_blank" rel="noopener">
-            <Icone id="instagram" />
+            <Icone nome="instagram" />
             @bwagency7
           </a>
           <a href={LINKS.fundadora} target="_blank" rel="noopener">
-            <Icone id="instagram" />
+            <Icone nome="instagram" />
             @bruwolker
           </a>
         </div>
       </div>
       <div className={`wrap ${s.base}`}>
         <span>© 2026 Diamond Angels · Salvador, BA</span>
-        <a href="#porta">Voltar à porta ↑</a>
+        <div className={s.acoesBase}>
+          <PreferenciaMovimento className={s.preferencia} />
+          <a href="#porta">Voltar à porta ↑</a>
+        </div>
       </div>
     </footer>
   );

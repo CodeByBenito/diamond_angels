@@ -29,7 +29,7 @@ export default function Marcas({ children }: { children: React.ReactNode }) {
                 </li>
               ))}
             </ul>
-            <ol className={s.fluxo} aria-label="Como funciona" data-reveal>
+            <ol className={s.fluxo} aria-label="Como funciona" data-stagger>
               {FLUXO.map((f, i) => (
                 <li key={f}>
                   <span>{String(i + 1).padStart(2, "0")}</span>
@@ -59,7 +59,7 @@ export default function Marcas({ children }: { children: React.ReactNode }) {
           </div>
         )}
 
-        <div className={s.form} data-reveal>
+        <div className={s.form} data-desvelar>
           {children}
         </div>
       </div>

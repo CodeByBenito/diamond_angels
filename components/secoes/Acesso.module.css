@@ -30,14 +30,23 @@
   display: grid; align-content: start; gap: 10px; padding: 26px 24px 28px; border: 1px solid rgba(242, 219, 160, 0.28); border-radius: 6px;
   background: linear-gradient(180deg, rgba(10, 7, 8, 0.55), rgba(10, 7, 8, 0.25)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 }
-.item :global(.icone) { width: 34px; height: 34px; color: var(--ouro-claro); margin-bottom: 6px; }
+/* Moldura facetada do ícone: o corte do diamante, com borda dourada fina */
+.selo {
+  --chanfro: 12px;
+  position: relative; display: grid; place-items: center; width: 60px; height: 60px; margin-bottom: 8px;
+  background: linear-gradient(135deg, rgba(242, 219, 160, 0.75), rgba(154, 107, 47, 0.35));
+  clip-path: polygon(var(--chanfro) 0, calc(100% - var(--chanfro)) 0, 100% var(--chanfro), 100% calc(100% - var(--chanfro)), calc(100% - var(--chanfro)) 100%, var(--chanfro) 100%, 0 calc(100% - var(--chanfro)), 0 var(--chanfro));
+}
+.selo::before { content: ""; position: absolute; inset: 1px; background: linear-gradient(160deg, #3a0b16, #160a0c); clip-path: inherit; }
+.selo :global(.icone) { position: relative; width: 34px; height: 34px; color: var(--ouro-claro); }
+.ativa .selo :global(.icone) { stroke-dasharray: 80; }
 .item h4 { margin: 0; font: 400 1.7rem/1.1 var(--f-titulo), serif; }
 .item p { color: #d9c9b6; font-size: 0.95rem; }
 @media (max-width: 1000px) { .itens { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 520px) { .itens { grid-template-columns: 1fr; gap: 10px; } .item { padding: 18px 18px 20px; grid-template-columns: 34px 1fr; column-gap: 14px; } .item :global(.icone) { grid-row: span 2; width: 28px; height: 28px; margin: 2px 0 0; } .item h4 { font-size: 1.45rem; } }
+@media (max-width: 520px) { .itens { grid-template-columns: 1fr; gap: 10px; } .item { padding: 18px 18px 20px; grid-template-columns: 44px 1fr; column-gap: 14px; } .item .selo { grid-row: span 2; width: 44px; height: 44px; --chanfro: 10px; margin: 2px 0 0; } .item .selo :global(.icone) { width: 26px; height: 26px; } .item h4 { font-size: 1.45rem; } }
 
 /* ------------------------------------------------ Cena presa (com movimento) */
-.ativa { height: 500vh; }
+.ativa { height: 420vh; }
 .ativa .palco { position: sticky; top: 0; height: 100svh; padding: 0; background: var(--noite); }
 .ativa .fora { position: absolute; inset: 0 0 auto; padding-top: calc(var(--topo) + 5vh); }
 .ativa .diamante {
@@ -57,7 +66,7 @@
 }
 .ativa .conteudo { padding-block: calc(var(--topo) + 16px) 32px; }
 @media (max-width: 760px) {
-  .ativa { height: 400vh; }
+  .ativa { height: 340vh; }
   .acesso { --cy: 62%; }
   .ativa .conteudo { gap: 20px; }
 }

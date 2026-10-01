@@ -15,14 +15,14 @@ export const PILARES = [
   { num: "III", titulo: "Experiences", texto: "Benefícios e vivências pensadas para quem faz parte, dentro e fora das festas." },
 ] as const;
 
-export type IconeAcesso = "coroa" | "diamante" | "megafone" | "conexao";
+export type IconeAcesso = "coroa" | "diamante" | "holofote" | "tacas";
 
 /** O que se abre para quem está na lista (cena do pico). */
 export const ACESSOS: { icone: IconeAcesso; titulo: string; texto: string }[] = [
   { icone: "coroa", titulo: "Acesso VIP", texto: "Entrada e lista nos eventos do clube e dos parceiros." },
   { icone: "diamante", titulo: "Benefícios exclusivos", texto: "Condições especiais em locais, marcas e serviços parceiros." },
-  { icone: "megafone", titulo: "Divulgação", texto: "Seu perfil e sua imagem ganham visibilidade nas ações do clube." },
-  { icone: "conexao", titulo: "Conexões", texto: "Convivência com outras mulheres, produtores e marcas da cidade." },
+  { icone: "holofote", titulo: "Divulgação", texto: "Seu perfil e sua imagem ganham visibilidade nas ações do clube." },
+  { icone: "tacas", titulo: "Conexões", texto: "Convivência com outras mulheres, produtores e marcas da cidade." },
 ];
 
 export const PASSOS_ENTRAR = [

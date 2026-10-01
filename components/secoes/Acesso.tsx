@@ -1,11 +1,12 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import { useEffect, useRef } from "react";
+import { VIDEO_CAMAROTE } from "@/conteudo/midia";
 import { ACESSOS } from "@/conteudo/textos";
 import { gsap, MQ, ScrollTrigger } from "@/lib/movimento";
 import { primeiroNome } from "@/lib/nome";
+import Icone from "../icones/Icone";
 import { useLista } from "../lista/ListaProvider";
-import Icone from "../ui/Icone";
 import s from "./Acesso.module.css";
 
 /* Diamante desenhado no mesmo corte do logo (unidades do viewBox -100…100) */
@@ -36,23 +37,30 @@ export default function Acesso() {
           defaults: { ease: "none" },
           scrollTrigger: { trigger: sec, start: "top top", end: "bottom bottom", scrub: 0.8, invalidateOnRefresh: true },
         });
-        tl.fromTo(`.${s.fora}`, { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 0, y: -40, scale: 0.96, duration: 0.18 }, 0.04)
-          .fromTo(zoom, { k: 1 }, { k: kMax, duration: 0.44, ease: "power3.in", onUpdate: aplicar }, 0.06)
-          .fromTo(`.${s.diamante}`, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.1 }, 0.34)
-          .fromTo(`.${s.luzes}`, { scale: 1.25 }, { scale: 1, duration: 0.5 }, 0.2);
+        // Ritmo: o diamante começa a crescer logo (power2.in, sem trecho morto no início) e o camarote
+        // já aparece enquanto ele ainda se desfaz, sem tela vazia entre as duas partes. No fim, uma pausa para ler.
+        tl.fromTo(`.${s.fora}`, { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 0, y: -40, scale: 0.96, duration: 0.16 }, 0.02)
+          .fromTo(zoom, { k: 1 }, { k: kMax, duration: 0.36, ease: "power2.in", onUpdate: aplicar }, 0.04)
+          .fromTo(`.${s.diamante}`, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.08 }, 0.3)
+          .fromTo(`.${s.luzes}`, { scale: 1.25 }, { scale: 1, duration: 0.5 }, 0.16);
         // uma animação por elemento: com "stagger" numa cena presa, só o primeiro nasceria escondido
         gsap.utils.toArray<HTMLElement>(`.${s.cabDentro} > *`, sec).forEach((el, i) => {
-          tl.fromTo(el, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.08, ease: "power2.out" }, 0.5 + i * 0.03);
+          tl.fromTo(el, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.08, ease: "power2.out" }, 0.34 + i * 0.03);
         });
         gsap.utils.toArray<HTMLElement>(`.${s.item}`, sec).forEach((el, i) => {
+          const em = 0.44 + i * 0.07;
           tl.fromTo(
             el,
             { autoAlpha: 0, y: 50, scale: 0.94 },
             { autoAlpha: 1, y: 0, scale: 1, duration: 0.08, ease: "power2.out" },
-            0.6 + i * 0.075,
+            em,
           );
+          // o traço do ícone se desenha logo depois do cartão aparecer
+          const icone = el.querySelector("svg");
+          if (icone)
+            tl.fromTo(icone, { strokeDashoffset: 80 }, { strokeDashoffset: 0, duration: 0.07, ease: "power1.inOut" }, em + 0.03);
         });
-        tl.to({}, { duration: 0.06 });
+        tl.to({}, { duration: 0.16 });
         aplicar();
         ScrollTrigger.refresh();
         return () => {
@@ -65,9 +73,11 @@ export default function Acesso() {
     { scope: ref },
   );
 
-  /* Vídeo opcional do camarote (public/videos/camarote.mp4): só carrega perto da cena e pausa fora dela */
+  /* Vídeo opcional do camarote (conteudo/midia.ts): só carrega perto da cena e pausa fora dela */
   useEffect(() => {
     const sec = ref.current!;
+    const src = VIDEO_CAMAROTE;
+    if (!src) return;
     const reduzido = matchMedia(MQ.reduzido).matches;
     let video: HTMLVideoElement | null = null;
     const obs = new IntersectionObserver(
@@ -83,7 +93,7 @@ export default function Acesso() {
             if (!reduzido) v.play().catch(() => {});
           });
           v.addEventListener("error", () => v.remove());
-          v.src = "/videos/camarote.mp4";
+          v.src = src;
           sec.querySelector(`.${s.dentro}`)?.prepend(v);
         } else if (video?.classList.contains(s.videoOk)) {
           if (e.isIntersecting && !reduzido) video.play().catch(() => {});
@@ -123,7 +133,9 @@ export default function Acesso() {
             <ul className={s.itens}>
               {ACESSOS.map((a) => (
                 <li key={a.titulo} className={s.item}>
-                  <Icone id={a.icone} />
+                  <span className={s.selo}>
+                    <Icone nome={a.icone} />
+                  </span>
                   <h4>{a.titulo}</h4>
                   <p>{a.texto}</p>
                 </li>

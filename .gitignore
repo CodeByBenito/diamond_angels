@@ -1,7 +1,7 @@
 node_modules
 .next
 out
-_versao-anterior-html
+Claude outputs
 *.tsbuildinfo
 next-env.d.ts
 .env*
