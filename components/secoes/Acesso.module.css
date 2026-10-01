@@ -69,3 +69,8 @@
 }
 @media (max-height: 760px) and (min-width: 761px) { .ativa .item { padding: 18px 20px; } .ativa .item p { font-size: 0.88rem; } }
 .ativa .dentro { grid-template-columns: minmax(0, 1fr); }
+/* Durante a travessia: camarote, luzes e cada cartão viram camadas da GPU (opacidade e movimento sem repintar).
+   Só nessa janela: promovidos o tempo todo, os cartões translúcidos ganhavam faixas na rasterização. */
+.transicao .dentro, .transicao .luzes, .transicao .cabDentro > *, .transicao .item { will-change: transform, opacity; }
+/* o diamante em SVG some de verdade quando o 3D assume (escondido, não é pintado nem composto) */
+.tem3d .diamante { visibility: hidden; transition: opacity 0.5s, visibility 0s 0.5s; }

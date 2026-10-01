@@ -48,8 +48,9 @@ export default function Acesso() {
         let diamante: Diamante3D | null = null;
         let cancelado = false;
         let naTela = false;
+        let emTransicao = false;
         // desenha só com a cena na tela e enquanto a pedra ainda aparece (depois, ela já sumiu)
-        const atualizarDesenho = () => diamante?.ativo(naTela && progresso < 0.5);
+        const atualizarDesenho = () => diamante?.ativo(naTela && progresso < 0.48);
 
         const tl = gsap.timeline({
           defaults: { ease: "none" },
@@ -61,6 +62,12 @@ export default function Acesso() {
             invalidateOnRefresh: true,
             onUpdate: (st) => {
               progresso = st.progress;
+              // camadas próprias na GPU só durante a travessia (fora dela, nada fica promovido à toa)
+              const atravessando = progresso > 0.26 && progresso < 0.82;
+              if (atravessando !== emTransicao) {
+                emTransicao = atravessando;
+                sec.classList.toggle(s.transicao, atravessando);
+              }
               diamante?.definirProgresso(progresso);
               atualizarDesenho();
             },
@@ -131,7 +138,7 @@ export default function Acesso() {
           visivel.disconnect();
           desenhar.disconnect();
           diamante?.destruir();
-          sec.classList.remove(s.ativa, s.tem3d);
+          sec.classList.remove(s.ativa, s.tem3d, s.transicao);
         };
       });
       return () => mm.revert();
